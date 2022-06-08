@@ -1,0 +1,77 @@
+
+<div #moviedetails class="movie-details">
+
+    <section class="header">
+        <div class="header-content">
+                <div class="left-img">
+                    <div class="movie-img">
+                        <div *ngIf="movieDetails.poster_path==null;then thenBlock else elseBlock"></div>
+                        <ng-template #thenBlock><img src="assets/images/no-image.png" alt="figure" class="no-image"></ng-template>
+                        <ng-template #elseBlock><img [attr.src]="imgUrl+movieDetails.poster_path" alt="{{movieDetails.original_title}}"></ng-template>    
+                    </div>
+                </div>
+                <div class="overlay"></div>
+                <div class="right-content">
+                    <div class="home-slide-item-content">
+                        <div class="items">
+                            <div class="item-title">
+                                {{movieDetails.original_title}}
+                            </div>
+                            <div class="movie-detail">
+                                <div class="movie-info">
+                                    <i class="far fa-star"></i>
+                                    <span>{{movieDetails.vote_average}}</span>
+                                </div>
+                                <div class="movie-info">
+                                    <i class="fas fa-clock"></i>
+                                    <span>{{movieDetails.runtime + ' min'}}</span>
+                                </div>
+                                <div class="movie-info">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>{{movieDetails.release_date}}</span>
+                                </div>
+                            </div>
+                            <div class="item-overview">
+                                {{movieDetails.overview}}
+                            </div>
+                            <br>
+                            <button type="button" class="btn btn-danger">Watch Now</button>
+                        </div>
+                    
+                    
+                    </div>
+                </div>    
+        </div>
+    
+    </section>
+    <br><br><br>
+    
+    <div class="movie-content">
+        <div class="reviews-section">
+            <h2 class="movie-heading mt-5">REVIEWS FOR {{'('+movieDetails.original_title+')'}}</h2> 
+            <div *ngIf="noreview; then noreviewBlock else reviewBlock"></div> 
+                <ng-template #reviewBlock>
+                    <table class="table-review table-responsive">
+                        <thead class="table-review-head">
+                            <td>SNO</td>
+                            <td>REVIEWS</td>
+                        </thead>
+                        <tbody class="table-review-body">
+                            <tr *ngFor="let rev of reviewList;let i=index;">
+                                <td>{{i+1}}</td>
+                                <td>{{rev.content}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </ng-template>               
+                <ng-template #noreviewBlock>
+                <div id="no-record_images">
+                    <h1 class="text-warning text-center">Reviews Not available For {{movieDetails.original_title}}</h1>
+                </div>
+            </ng-template> 
+        </div>
+        <br>
+    </div>
+    
+   
+</div>
